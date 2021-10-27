@@ -4,17 +4,17 @@ variable "aws_region" {
   description = "aws region to use"
 }
 
-variable "access_key" {
+variable "AWS_ACCESS_KEY_ID" {
   type        = string
   description = "AWS Access key"
 }
 
-variable "secret_key" {
+variable "AWS_SECRET_ACCESS_KEY" {
   type        = string
   description = "AWS secret key"
 }
 
-variable "session_token" {
+variable "AWS_SESSION_TOKEN" {
   type        = string
   description = "AWS session token"
 }
