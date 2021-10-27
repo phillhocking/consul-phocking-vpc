@@ -13,3 +13,8 @@ variable "secret_key" {
   type        = string
   description = "AWS secret key"
 }
+
+variable "session_token" {
+  type        = string
+  description = "AWS session token"
+}
