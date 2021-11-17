@@ -134,7 +134,7 @@ resource "aws_internet_gateway" "gw" {
 
 # VPC Route Table
 resource "aws_default_route_table" "default" {
-  default_route_table_id = aws_vpc.main.main_route_table_id
+  default_route_table_id = aws_vpc.main.default_route_table_id
 
   tags = {
     Name = "${var.vpc_name}-public"
