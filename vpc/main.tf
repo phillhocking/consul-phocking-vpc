@@ -25,7 +25,7 @@ resource "aws_subnet" "dev" {
   cidr_block        = cidrsubnet(var.cidr_block, 6, 2)
 
   tags = {
-    Name = "dev-subnet"
+    Name = "phocking-dev-subnet"
   }
 
   depends_on = [
@@ -41,7 +41,7 @@ resource "aws_subnet" "staging" {
 
 
   tags = {
-    Name = "staging-subnet"
+    Name = "phocking-staging-subnet"
   }
 
   depends_on = [
@@ -56,7 +56,7 @@ resource "aws_subnet" "prod" {
   cidr_block        = cidrsubnet(var.cidr_block, 6, 0)
 
   tags = {
-    Name = "prod-subnet"
+    Name = "phocking-prod-subnet"
   }
 
   depends_on = [
@@ -72,7 +72,7 @@ resource "aws_subnet" "public" {
   cidr_block        = cidrsubnet(var.cidr_block, 8, 254)
 
   tags = {
-    Name = "public-subnet"
+    Name = "phocking-public-subnet"
   }
 
   depends_on = [
@@ -143,6 +143,17 @@ resource "aws_default_route_table" "default" {
   depends_on = [
     aws_internet_gateway.gw,
     aws_vpc.main,
+  ]
+}
+
+resource "aws_route" "default_gw" {
+  route_table_id         = aws_route_table.default.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.gw.id
+
+  depends_on = [
+    aws_route_table.default,
+    aws_internet_gateway.gw,
   ]
 }
 
