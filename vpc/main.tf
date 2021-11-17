@@ -134,27 +134,17 @@ resource "aws_internet_gateway" "gw" {
 
 # VPC Route Table
 resource "aws_default_route_table" "default" {
-  default_route_table_id = aws_vpc.main.default_route_table_id
+  default_route_table_id = aws_vpc.main.main_route_table_id
+
+    route {
+      cidr_block    = "0.0.0.0/0"
+      gateway_id    = aws_internet_gateway.gw.id
+    }
 
   tags = {
     Name = "${var.vpc_name}-public"
   }
-
-  depends_on = [
-    aws_internet_gateway.gw,
-    aws_vpc.main,
-  ]
-}
-
-resource "aws_route" "default_gw" {
-  route_table_id         = aws_route_table.default.id
-  destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.gw.id
-
-  depends_on = [
-    aws_route_table.default,
-    aws_internet_gateway.gw,
-  ]
+  depends_on = [aws_internet_gateway.gw]
 }
 
 # prod Subnet Route Table
